@@ -4,6 +4,11 @@ const app = express()
 const mongoose = require('mongoose')
 const booksController = require('./controllers/books-control.js')
 
+// MIDDLEWARE
+app.set('views', __dirname + '/views')
+app.set('view engine', 'jsx')
+app.engine('jsx', require('express-react-views').createEngine())
+app.use(express.urlencoded({extended: true}))
 
 app.use('/books', booksController)
 // ROUTES
@@ -11,7 +16,7 @@ app.get('/', (req, res) => {
     res.send('Welcome to the site about BOOKS')
 })
 app.get('*', (req, res) => {
-    res.send('ERROR')
+    res.render('error')
 })
 
 

@@ -4,8 +4,17 @@ const router = express.Router()
 const Books = require('../models/books.js')
 const oldBooks = require('../models/DB.js')
 
-router.get('/', (req, res) => {
-    res.send('books page')
+router.get('/', async (req, res) => {
+    try {
+        const books = await Books.find()
+        res.render('index', {
+            books: books,
+            title: 'Book'
+        })
+    } catch (error) {
+        console.log(error)
+        res.render(error)
+    }
 })
 
 router.get('/:id', async (req, res) => {
