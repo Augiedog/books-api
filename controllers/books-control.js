@@ -3,6 +3,7 @@ const router = express.Router()
 
 const Books = require('../models/books.js')
 const oldBooks = require('../models/DB.js')
+const { populate } = require('../models/books.js')
 
 router.get('/', async (req, res) => {
     try {
@@ -21,6 +22,7 @@ router.get('/:id', async (req, res) => {
     try {
         const { id } = req.params
         await Books.findById(id)
+        res.render('book')
     } catch (error) {
         console.log(error)
         res.send("ERROR")

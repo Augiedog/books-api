@@ -13,7 +13,7 @@ app.use(express.urlencoded({extended: true}))
 app.use('/books', booksController)
 // ROUTES
 app.get('/', (req, res) => {
-    res.send('Welcome to the site about BOOKS')
+    res.redirect('/books')
 })
 app.get('*', (req, res) => {
     res.render('error')
