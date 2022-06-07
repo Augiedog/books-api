@@ -10,7 +10,7 @@ router.get('/', async (req, res) => {
         const books = await Books.find()
         res.render('index', {
             books: books,
-            title: 'Book'
+            title: 'title'
         })
     } catch (error) {
         console.log(error)
@@ -21,11 +21,15 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
     try {
         const { id } = req.params
-        await Books.findById(id)
-        res.render('book')
+        const books = await Books.findById(id)
+        .then(theBook => {
+            res.render('book', {
+                book: theBook
+            })
+        })
     } catch (error) {
         console.log(error)
-        res.send("ERROR")
+        res.render("error")
     }
 })
 router.get('/seed', async (req, res) => {
@@ -34,9 +38,30 @@ router.get('/seed', async (req, res) => {
         res.redirect('/books')
     } catch (error) {
         console.log(error)
-        res.send("ERROR")
+        res.render("error")
     }
 })
 
+// Delete 
+router.delete('/:id', async (req, res) => {
+    try {
+        const { id } = req.params
+        await Books.findByIdAndDelete(id)
+        res.status(303).redirect('/books')
+    } catch (error) {
+        console.log(error)
+        res.render('error')
+    }
+})
+// POST
+router.post('/', async (req, res) => {
+    try {
+        await Books.create(req.body)
+        res.redirect('/books')
+    } catch (error) {
+        console.log(error)
+        res.render('error')
+    }
+})
 
 module.exports = router

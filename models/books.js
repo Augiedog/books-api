@@ -20,5 +20,8 @@ const booksSchema = new mongoose.Schema({
     }
 })
 
+booksSchema.methods.getYear = function() {
+    return `${this.title} was written in ${this.year}.`
+}
 
 module.exports = mongoose.model('Books', booksSchema)
