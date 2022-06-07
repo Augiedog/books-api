@@ -1,3 +1,4 @@
+const res = require('express/lib/response')
 const React = require('react')
 const Def = require('./layouts/default')
 
