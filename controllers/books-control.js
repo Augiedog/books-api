@@ -41,7 +41,6 @@ router.get('/seed', async (req, res) => {
         res.render("error")
     }
 })
-
 // Delete 
 router.delete('/:id', async (req, res) => {
     try {
@@ -61,6 +60,16 @@ router.post('/', async (req, res) => {
     } catch (error) {
         console.log(error)
         res.render('error')
+    }
+})
+// Update 
+router.put('/', async (req, res) => {
+    const { id } = req.params
+    try {
+        await Books.findByIdAndUpdate(id, req.body)
+    } catch (error) {
+        console.log(error)
+        res.render(error)
     }
 })
 
